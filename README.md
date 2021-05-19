@@ -80,7 +80,7 @@ Things you may want to cover:
 | Column     | Type       | Options           |
 | ------     | ---------- | ----------------- |
 | post_num   | string     | null: false       |
-| metropolis | string     | null: false       |
+| place_id   | integer    | null: false       |
 | city       | string     | null: false       |
 | address    | string     | null: false       |
 | building   | string     |                   |
