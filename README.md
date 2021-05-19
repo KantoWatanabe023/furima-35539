@@ -27,14 +27,16 @@ Things you may want to cover:
 
 ## users テーブル
 
-| Column      | Type   | Options     |
-| ----------- | ------ | ----------- |
-| name        | string | null: false |
-| email       | string | null: false |
-| password    | string | null: false |
-| last_name   | string | null: false |
-| first_name  | string | null: false |
-| birth_day   | date   | null: false |
+| Column                | Type   | Options      |
+| --------------------- | ------ | ------------ |
+| name                  | string | null: false  |
+| email                 | string | unique: true |
+| encrypted_password    | string | null: false  |
+| last_name             | string | null: false  |
+| first_name            | string | null: false  |
+| last_name_detail      | string | null: false  |
+| first_name_detail     | string | null: false  |
+| birth_day             | date   | null: false  |
 
 
 ### Association
@@ -46,11 +48,11 @@ Things you may want to cover:
 | ----------- | ------- | ----------- |
 | items_name  | string  | null: false |
 | items_about | text    | null: false |
-| category    | string  | null: false |
-| status      | string  | null: false |
-| shipping    | string  | null: false |
-| place       | string  | null: false |
-| day         | string  | null: false |
+| category_id | integer | null: false |
+| status_id   | integer | null: false |
+| shipping_id | integer | null: false |
+| place_id    | integer | null: false |
+| day_id      | integer | null: false |
 | price       | integer | null: false |
 
 
@@ -60,20 +62,29 @@ Things you may want to cover:
 - has_one :buy
 
 ## buys テーブル
-
-| Column     | Type     | Options     |
-| ------     | -------- | ----------- |
-| credit_num | integer  | null: false |
-| deadline   | integer  | null: false |
-| security   | integer  | null: false |
-| post_num   | integer  | null: false |
-| metropolis | string   | null: false |
-| city       | string   | null: false |
-| address    | integer  | null: false |
-| building   | string   | null: false |
-| phone_num  | integer  | null: false |
+| Column  | Type       | Options |
+| ------  | ---------- | ------- |
+| user_id | references |         |
+| item_id | references |         |
 
 
 ### Association
 - belongs_to :item
 - belongs_to :user
+- has_many :residences
+
+
+
+## residences テーブル
+| Column     | Type   | Options     |
+| ------     | ------ | ----------- |
+| post_num   | string | null: false |
+| metropolis | string | null: false |
+| city       | string | null: false |
+| address    | string | null: false |
+| building   | string |             |
+| phone_num  | string | null: false |
+
+### Association
+- belongs_to :buy
+
