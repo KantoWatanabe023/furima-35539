@@ -4,15 +4,15 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # validates :email, inclusion: { in: ["@"] }
-  validates :nickname,          presence: true
-  validates :last_name,         presence: true, format: {with: /\A[ぁ-んァ-ン一-龥]/ }
-  validates :first_name,        presence: true, format: {with: /\A[ぁ-んァ-ン一-龥]/ }
-  validates :last_name_detail,  presence: true, format: {with: /\A[ァ-ヶー－]+\z/ }
-  validates :first_name_detail, presence: true, format: {with: /\A[ァ-ヶー－]+\z/ }
-  validates :birth_day,         presence: true
-  # VALID_PASSWORD_REGEX = /\A[a-z0-9]+\z/i
-  # validates :password,          format: { with: VALID_PASSWORD_REGEX }
-  validates :encrypted_password,:password,:password_confirmation,format:{with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{7,}/}
+ with_options presence: true do
+  validates :nickname          
+  validates :last_name,          format: {with: /\A[ぁ-んァ-ン一-龥]/ }
+  validates :first_name,         format: {with: /\A[ぁ-んァ-ン一-龥]/ }
+  validates :last_name_detail,   format: {with: /\A[ァ-ヶー－]+\z/ }
+  validates :first_name_detail,  format: {with: /\A[ァ-ヶー－]+\z/ }
+  validates :birth_day
+           
+ end
+  validates :password,:password_confirmation,format:{with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]/}
 
 end

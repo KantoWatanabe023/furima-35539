@@ -11,8 +11,8 @@ require 'rails_helper'
         expect(@user).to be_valid
       end
       it 'passwordとpassword_confirmationが6文字以上の半角英数字混合であれば登録できる' do
-        @user.password = '980tro'
-        @user.password_confirmation = '980tro'
+        @user.password = '000aaa'
+        @user.password_confirmation = '000aaa'
         expect(@user).to be_valid
       end
     end
@@ -53,13 +53,11 @@ require 'rails_helper'
      end
      it "passwordは半角英数字混合での入力でないと登録できない(英字のみ)" do
       @user.password = 'asdzxc'
-      # @user.password_confirmation = 'asdzxc'
       @user.valid?
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
      end
      it "passwordは半角英数字混合での入力でないと登録できない(数字のみ)" do
       @user.password = '000000'
-      # @user.password_confirmation = '000000'
       @user.valid?
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
      end
@@ -67,6 +65,11 @@ require 'rails_helper'
       @user.password_confirmation = ""
       @user.valid?
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+     end
+     it "psswordは全角では登録できないこと" do
+      @user.password = 'ＡＡＡ０００'
+      @user.valid?
+      expect(@user.errors.full_messages).to include('Password is invalid')
      end
      it "passwordとpassword_confirmationが一致してないと登録できない" do
       @user.password = '123456'
