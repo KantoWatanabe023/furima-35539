@@ -54,12 +54,12 @@ require 'rails_helper'
      it "passwordは半角英数字混合での入力でないと登録できない(英字のみ)" do
       @user.password = 'asdzxc'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      expect(@user.errors.full_messages).to include("Password is invalid")
      end
      it "passwordは半角英数字混合での入力でないと登録できない(数字のみ)" do
       @user.password = '000000'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      expect(@user.errors.full_messages).to include("Password is invalid")
      end
      it "passwordかpassword_confirmationのどちらか空だと登録できない" do
       @user.password_confirmation = ""
