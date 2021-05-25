@@ -5,15 +5,14 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # validates :email, inclusion: { in: ["@"] }
-  validates :nickname, presence: true
-  # # パスワードが確認用一致しているか検証
-  # validates :encrypted_password, confirmation: true
-  # validates :encrypted_password_confirmation
-  validates :last_name, presence: true
-  validates :first_name, presence: true
-  validates :last_name_detail, presence: true
-  validates :first_name_detail, presence: true
-  validates :birth_day, presence: true
-
+  validates :nickname,          presence: true
+  validates :last_name,         presence: true, format: {with: /\A[ぁ-んァ-ン一-龥]/ }
+  validates :first_name,        presence: true, format: {with: /\A[ぁ-んァ-ン一-龥]/ }
+  validates :last_name_detail,  presence: true, format: {with: /\A[ァ-ヶー－]+\z/ }
+  validates :first_name_detail, presence: true, format: {with: /\A[ァ-ヶー－]+\z/ }
+  validates :birth_day,         presence: true
+  # VALID_PASSWORD_REGEX = /\A[a-z0-9]+\z/i
+  # validates :password,          format: { with: VALID_PASSWORD_REGEX }
+  validates :encrypted_password,:password,:password_confirmation,format:{with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{7,}/}
 
 end
