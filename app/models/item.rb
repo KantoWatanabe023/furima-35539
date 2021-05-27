@@ -7,10 +7,13 @@ class Item < ApplicationRecord
   belongs_to :status
   has_one_attached :image
 
+  belongs_to :user
+
   with_options presence: true do
-  validates :items_name
-  validates :items_about
-  validates :price
+    validates :items_name
+    validates :items_about
+    validates :price, inclusion: { in: 300..9_999_999 }, format: { with: /\A[0-9]+\z/ }
+    validates :image
   end
 
   with_options numericality: { other_than: 1 } do 
@@ -22,5 +25,7 @@ class Item < ApplicationRecord
       validates :status_id
     end
   end
+
+
 
 end
