@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_item, only: [:show, :edit, :update]
-  before_action :set_user, only: [:edit, :update]
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :move_to_root, only: [:edit, :update, :destroy]
 
   def index
     @item = Item.all.order("created_at DESC")
@@ -12,10 +12,8 @@ class ItemsController < ApplicationController
   def create
     @item = Item.create(item_params)
     if @item.save
-      # 保存された時はルートパスに戻るよう記述
       redirect_to root_path
     else
-      # 保存されなかった時は新規投稿ページへ戻るよう記述
       render :new
     end
   end
@@ -33,6 +31,10 @@ class ItemsController < ApplicationController
       render :edit
     end
   end
+  def destroy
+    @item.destroy
+    redirect_to root_path
+  end
 
   private
 
@@ -44,7 +46,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  def set_user
+  def move_to_root
     unless current_user.id == @item.user_id
       redirect_to root_path
     end
