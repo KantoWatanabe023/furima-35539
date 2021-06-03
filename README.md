@@ -62,7 +62,7 @@ Things you may want to cover:
 - belongs_to :user
 - has_one :buy
 
-## buys テーブル
+## orders テーブル
 | Column | Type       | Options           |
 | ----   | ---------- | ----------------- |
 | user   | references | foreign_key: true |
@@ -85,9 +85,9 @@ Things you may want to cover:
 | address    | string     | null: false       |
 | building   | string     |                   |
 | phone_num  | string     | null: false       |
-| buy        | references | foreign_key: true |
+| order      | references | foreign_key: true |
 
 
 ### Association
-- belongs_to :buy
+- belongs_to :order
 
