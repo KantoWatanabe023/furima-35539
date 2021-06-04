@@ -1,6 +1,6 @@
 class OrderResidence
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :post_num, :place_id, :city, :address, :building, :phone_num, :order, :token
+  attr_accessor :user_id, :item_id, :post_num, :place_id, :city, :address, :building, :phone_num, :token
 
   with_options presence: true do
     validates :post_num,   format: {with: /\A\d{3}[-]\d{4}\z/ }

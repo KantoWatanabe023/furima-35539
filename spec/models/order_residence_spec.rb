@@ -19,10 +19,6 @@ RSpec.describe OrderResidence, type: :model do
         @order_residence.building = ''
         expect(@order_residence).to be_valid
       end
-      it 'phone_numにハイフンが含まれていると保存できる' do
-        @order_residence.phone_num = 123-4567-8912
-        expect(@order_residence).to be_valid
-      end
       it 'phone_numが11桁以下であると保存できる' do
         @order_residence.phone_num = 123-4567-891
         expect(@order_residence).to be_valid
@@ -57,14 +53,14 @@ RSpec.describe OrderResidence, type: :model do
         expect(@order_residence.errors.full_messages).to include("Place can't be blank")
       end
       it 'post_numにハイフンが含まれていないと保存できない' do
-        @order_residence.post_num = 1234567
+        @order_residence.post_num = '1234567'
         @order_residence.valid?
         expect(@order_residence.errors.full_messages).to include("Post num is invalid")
       end
       it 'phone_numが12桁であると保存できない' do
-        @order_residence.post_num = 123456789123
+        @order_residence.phone_num = '123456789123'
         @order_residence.valid?
-        expect(@order_residence.errors.full_messages).to include("Post num is invalid")
+        expect(@order_residence.errors.full_messages).to include("Phone num is too long (maximum is 11 characters)")
       end
       it 'userが紐付いていないと保存できない' do
         @order_residence.user_id = nil
@@ -80,6 +76,11 @@ RSpec.describe OrderResidence, type: :model do
         @order_residence.token = nil
         @order_residence.valid?
         expect(@order_residence.errors.full_messages).to include("Token can't be blank")
+      end
+      it "phone_numは数字以外が混じっていると購入できない" do
+        @order_residence.phone_num = '123456789a'
+        @order_residence.valid?
+        expect(@order_residence.errors.full_messages).to include("Phone num is not a number")
       end
       
     end
