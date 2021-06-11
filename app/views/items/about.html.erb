@@ -1,0 +1,43 @@
+<%= render "shared/header" %>
+<div class="items-search">
+
+<h1 class= "search">
+  商品検索
+</h1>
+<%= search_form_for @p, url: research_items_path do |f| %>
+  <div class = "item-show-search">
+    <div class = "category-about">
+      <%= f.label :category_id_eq, 'カテゴリー名',class:"category-name" %>
+      <%= f.collection_select :category_id_eq, Category.all, :id, :name , {include_blank: "---"}, {class:"select-category"}  %>
+    </div>
+  <br>
+  <%= f.label :status_id_eq, '商品の状態',class:"status-name" %>
+  <%= f.collection_select :status_id_eq, Status.all, :id, :name , {include_blank: "---"}, {class:"select-status"} %>
+  <br>
+   <div class = price-ranges>
+     <%= f.label :price_eq, '商品の値段', class:"price-name" %>
+     <div class = price-range>
+      <%= f.number_field :price_gteq, min:0, size:30, step:1000,class:"price-range-gt" %>円
+      <%= f.label :price_eq, ' 〜 ' %>
+      <%= f.number_field :price_lteq, max:9999999, size:30, step:1000,class:"price-range-gt" %>円
+     </div>
+   </div>
+  <br>
+  <div class = "search-submits">
+  <%= f.submit '検索', class:"search-submit" %>
+  </div>
+  </div>
+<% end %>
+
+  <footer class="items-sell-footer">
+    <ul class="menu">
+      <li><a href="#">プライバシーポリシー</a></li>
+      <li><a href="#">フリマ利用規約</a></li>
+      <li><a href="#">特定商取引に関する表記</a></li>
+    </ul> 
+    <%= link_to image_tag('furima-logo-color.png' , size: '185x50'), "/" %>
+     <p class="inc">
+      ©︎Furima,Inc.
+    </p>
+  </footer>
+</div>
