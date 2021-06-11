@@ -1,7 +1,8 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :search]
   before_action :move_to_root, only: [:edit, :update, :destroy]
+  before_action :search_item, only: [:about, :research]
 
   def index
     @item = Item.all.order("created_at DESC")
@@ -36,6 +37,18 @@ class ItemsController < ApplicationController
     redirect_to root_path
   end
 
+  def search
+    @items = Item.search(params[:keyword])
+  end
+
+  def about
+    @items = Item.all
+  end
+
+  def research
+    @results = @p.result
+  end
+
   private
 
   def item_params
@@ -51,4 +64,9 @@ class ItemsController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def search_item
+    @p = Item.ransack(params[:q])  
+  end
+
 end
