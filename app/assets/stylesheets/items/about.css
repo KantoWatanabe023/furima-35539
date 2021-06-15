@@ -18,6 +18,11 @@
   padding:10vh 10vw;
   width: 70vw;
 }
+.category-about, .status-about{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .category-name{
   font-weight: bold;
@@ -40,6 +45,8 @@
 
 .price-ranges{
   display:flex;
+  align-items: center;
+  justify-content: center;
   margin:25px 0;
   font-weight: bold;
 }

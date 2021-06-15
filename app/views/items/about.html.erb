@@ -11,8 +11,10 @@
       <%= f.collection_select :category_id_eq, Category.all, :id, :name , {include_blank: "---"}, {class:"select-category"}  %>
     </div>
   <br>
-  <%= f.label :status_id_eq, '商品の状態',class:"status-name" %>
-  <%= f.collection_select :status_id_eq, Status.all, :id, :name , {include_blank: "---"}, {class:"select-status"} %>
+    <div class = "status-about">
+      <%= f.label :status_id_eq, '商品の状態',class:"status-name" %>
+      <%= f.collection_select :status_id_eq, Status.all, :id, :name , {include_blank: "---"}, {class:"select-status"} %>
+    </div>
   <br>
    <div class = price-ranges>
      <%= f.label :price_eq, '商品の値段', class:"price-name" %>
